@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Assistant</title>
+<style>
+body{font-family:Arial;text-align:center;margin-top:100px}
+input{padding:10px;width:300px}
+button{padding:10px}
+</style>
+</head>
+<body>
+
+<h1>AI Disaster Assistant</h1>
+
+<input id="msg" placeholder="Ask something..." />
+<button onclick="ask()">Send</button>
+
+<h2 id="reply"></h2>
+
+<script>
+async function ask(){
+ const text=document.getElementById("msg").value;
+
+ const res=await fetch("/api/ai",{
+  method:"POST",
+  headers:{ "Content-Type":"application/json"},
+  body:JSON.stringify({text})
+ });
+
+ const data=await res.json();
+ document.getElementById("reply").innerText=data.reply;
+}
+</script>
+
+</body>
+</html>
